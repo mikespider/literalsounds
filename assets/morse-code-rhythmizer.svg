@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Morse Code Rhythmizer</title>
+  <desc id="desc">Abstract dots, dashes and rhythmic sequencer lanes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.55" stop-color="#17152b"/>
+      <stop offset="1" stop-color="#060911"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#ffcc66" stop-opacity=".23"/>
+      <stop offset="1" stop-color="#ffcc66" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="24"/></filter>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#ffffff" stroke-opacity=".035"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1100" rx="42" fill="url(#bg)"/>
+  <rect width="1600" height="1100" rx="42" fill="url(#grid)"/>
+  <ellipse cx="800" cy="500" rx="650" ry="440" fill="url(#glow)" filter="url(#soft)"/>
+  <g fill="none" stroke="#f5c867" stroke-linecap="round">
+    <path d="M185 510H1415" stroke-opacity=".15"/>
+    <path d="M185 640H1415" stroke-opacity=".10"/>
+    <path d="M185 770H1415" stroke-opacity=".08"/>
+  </g>
+  <g fill="#f5c867">
+    <circle cx="250" cy="510" r="22"/><rect x="325" y="488" width="150" height="44" rx="22"/>
+    <circle cx="550" cy="510" r="22"/><circle cx="635" cy="510" r="22"/><rect x="710" y="488" width="150" height="44" rx="22"/>
+    <rect x="935" y="488" width="150" height="44" rx="22"/><circle cx="1160" cy="510" r="22"/><circle cx="1245" cy="510" r="22"/>
+  </g>
+  <g fill="#66e4d3" opacity=".86">
+    <rect x="215" y="622" width="85" height="36" rx="18"/><circle cx="378" cy="640" r="18"/><rect x="448" y="622" width="132" height="36" rx="18"/>
+    <circle cx="665" cy="640" r="18"/><rect x="735" y="622" width="100" height="36" rx="18"/><circle cx="920" cy="640" r="18"/>
+    <circle cx="990" cy="640" r="18"/><rect x="1060" y="622" width="145" height="36" rx="18"/><circle cx="1280" cy="640" r="18"/>
+  </g>
+  <g fill="#f18bb6" opacity=".8">
+    <circle cx="250" cy="770" r="15"/><circle cx="310" cy="770" r="15"/><rect x="370" y="755" width="110" height="30" rx="15"/>
+    <rect x="545" y="755" width="110" height="30" rx="15"/><circle cx="720" cy="770" r="15"/><circle cx="780" cy="770" r="15"/>
+    <rect x="850" y="755" width="110" height="30" rx="15"/><circle cx="1025" cy="770" r="15"/><rect x="1090" y="755" width="150" height="30" rx="15"/>
+  </g>
+  <text x="800" y="250" text-anchor="middle" fill="#ffffff" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="82" letter-spacing="4">MORSE CODE</text>
+  <text x="800" y="340" text-anchor="middle" fill="#f5c867" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="66" letter-spacing="8">RHYTHMIZER</text>
+  <text x="800" y="935" text-anchor="middle" fill="#cfd3df" font-family="Inter,Arial,sans-serif" font-size="30" letter-spacing="6">TEXT  →  DOTS + DASHES  →  RHYTHM + SYNTHESIS</text>
+</svg>
