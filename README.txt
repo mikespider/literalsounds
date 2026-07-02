@@ -1,38 +1,22 @@
-LITERAL SOUNDS LABS — PLUGIN WEBSITE
-====================================
+LITERAL SOUNDS LABS WEBSITE — FIXED PACKAGE
 
-WHAT IS INCLUDED
-- index.html                         Complete responsive website
-- favicon.svg                       Browser icon
-- assets/                           Optimised plugin artwork
-- downloads/                        Put the plugin ZIP files here
+Upload the CONTENTS of this folder to the root of your GitHub Pages repository:
 
-EXPECTED DOWNLOAD FILENAMES
-- PhiTreeMobiusSynth.zip
-- EarthMagneticFieldFX.zip
-- HeisenKaon.zip
-- ImageSonicFlux.zip
-- PhiDelayNetwork.zip
-- MorseCodeRhythmizer.zip
+index.html
+literalSoundsLogo.png
+favicon.svg
+assets/
+downloads/
 
-You can change any filename, Payhip URL, description, feature or video URL in the
-PLUGINS array near the bottom of index.html.
+The logo is now referenced as:
+  ./literalSoundsLogo.png
 
-VIDEO PLACEHOLDERS
-Each plugin has a `video: ""` field. Paste a YouTube video URL between the quotes
-to replace the placeholder with a privacy-enhanced YouTube embed.
+It must sit beside index.html. Do not place index.html alone in the repository.
 
-GOOGLE FORMS EMAIL GATE
-The page uses the same Google Forms endpoint and email field ID as the supplied
-old EMF FX page:
-- Form endpoint ends in /formResponse
-- Email field: entry.2054451267
-
-The form is sent with fetch(..., mode: "no-cors"). After submission, a localStorage
-flag remembers that downloads are unlocked on that browser. Only the unlock flag
-is stored locally; the email itself is not stored in localStorage.
-
-UPLOAD
-Upload index.html, favicon.svg, the assets folder and the downloads folder to the
-same website directory. Keep the folder names unchanged unless you also update
-the paths in index.html.
+The assets folder contains the plugin images. The downloads folder should contain:
+PhiTreeMobiusSynth.zip
+EarthMagneticFieldFX.zip
+HeisenKaon.zip
+ImageSonicFlux.zip
+PhiDelayNetwork.zip
+MorseCodeRhythmizer.zip
