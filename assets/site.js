@@ -162,6 +162,71 @@ function bindHeaderMotion() {
   });
 }
 
+
+function bindActiveNavigation() {
+  const links = Array.from(document.querySelectorAll('.nav-links [data-nav]'));
+  if (!links.length) return;
+
+  const setActive = (key) => {
+    links.forEach(link => {
+      if (link.dataset.nav === key) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  const path = window.location.pathname.replace(/\/+$/, '');
+  const isHome = path === '' || path === '/' || path.endsWith('/index.html');
+  const isContact = path.endsWith('/contact.html');
+  const isPlugin = path.includes('/plugins/');
+
+  if (isContact) {
+    setActive('contact');
+    return;
+  }
+
+  if (isPlugin) {
+    setActive('plugins');
+    return;
+  }
+
+  if (!isHome) {
+    links.forEach(link => link.removeAttribute('aria-current'));
+    return;
+  }
+
+  const sections = [
+    { key: 'home', element: document.getElementById('top') || document.body },
+    { key: 'plugins', element: document.getElementById('plugins') },
+    { key: 'about', element: document.getElementById('about') },
+    { key: 'downloads', element: document.getElementById('downloads') }
+  ].filter(item => item.element);
+
+  let ticking = false;
+  const update = () => {
+    const headerHeight = document.getElementById('siteHeader')?.offsetHeight || 0;
+    const marker = window.scrollY + headerHeight + Math.min(180, window.innerHeight * 0.28);
+    let current = 'home';
+    sections.forEach(item => {
+      if (item.element.offsetTop <= marker) current = item.key;
+    });
+    setActive(current);
+    ticking = false;
+  };
+
+  const requestUpdate = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
+  window.addEventListener('hashchange', requestUpdate);
+  links.forEach(link => link.addEventListener('click', () => setTimeout(requestUpdate, 80)));
+  update();
+}
+
 function bindReveal() {
   const els = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {
@@ -185,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindDialogs();
   bindVideoPreviews();
   bindHeaderMotion();
+  bindActiveNavigation();
   bindReveal();
   updateUnlockUI();
   highlightRecommendedPlatform();

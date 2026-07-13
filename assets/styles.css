@@ -417,6 +417,7 @@ h1, h2, h3, p, a, span, button {
   color: var(--text);
   background: rgba(255,255,255,.075);
   border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 -2px 0 var(--gold);
 }
 .contact-page { min-height: 72vh; }
 .contact-hero { padding-top: clamp(78px, 9vw, 132px); padding-bottom: 34px; }
