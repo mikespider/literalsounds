@@ -169,62 +169,81 @@ function bindActiveNavigation() {
 
   const setActive = (key) => {
     links.forEach(link => {
-      if (link.dataset.nav === key) link.setAttribute('aria-current', 'page');
+      const active = link.dataset.nav === key;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     });
   };
 
-  const path = window.location.pathname.replace(/\/+$/, '');
-  const isHome = path === '' || path === '/' || path.endsWith('/index.html');
-  const isContact = path.endsWith('/contact.html');
-  const isPlugin = path.includes('/plugins/');
+  const cleanPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const isContact = cleanPath.endsWith('/contact.html');
+  const isPlugin = cleanPath.includes('/plugins/');
+  const isLegal = /\/(terms|privacy|refund)\.html$/.test(cleanPath);
+  const isHome = cleanPath === '/' || cleanPath.endsWith('/index.html');
 
   if (isContact) {
     setActive('contact');
     return;
   }
-
   if (isPlugin) {
     setActive('plugins');
     return;
   }
-
-  if (!isHome) {
-    links.forEach(link => link.removeAttribute('aria-current'));
+  if (isLegal || !isHome) {
+    setActive('');
     return;
   }
 
   const sections = [
-    { key: 'home', element: document.getElementById('top') || document.body },
+    { key: 'home', element: document.getElementById('top') },
     { key: 'plugins', element: document.getElementById('plugins') },
     { key: 'about', element: document.getElementById('about') },
     { key: 'downloads', element: document.getElementById('downloads') }
   ].filter(item => item.element);
 
   let ticking = false;
+
   const update = () => {
     const headerHeight = document.getElementById('siteHeader')?.offsetHeight || 0;
-    const marker = window.scrollY + headerHeight + Math.min(180, window.innerHeight * 0.28);
+    const activationLine = headerHeight + Math.max(70, window.innerHeight * 0.22);
     let current = 'home';
-    sections.forEach(item => {
-      if (item.element.offsetTop <= marker) current = item.key;
-    });
+
+    for (const section of sections) {
+      const rect = section.element.getBoundingClientRect();
+      if (rect.top <= activationLine) current = section.key;
+    }
+
+    // At the very bottom, keep Downloads active even on short screens.
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8 &&
+        document.getElementById('downloads')) {
+      current = 'downloads';
+    }
+
     setActive(current);
     ticking = false;
   };
 
   const requestUpdate = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
   };
 
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate, { passive: true });
   window.addEventListener('hashchange', requestUpdate);
-  links.forEach(link => link.addEventListener('click', () => setTimeout(requestUpdate, 80)));
-  update();
+
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      const key = link.dataset.nav;
+      if (key) setActive(key);
+      setTimeout(requestUpdate, 120);
+      setTimeout(requestUpdate, 450);
+    });
+  });
+
+  requestUpdate();
 }
 
 function bindReveal() {
